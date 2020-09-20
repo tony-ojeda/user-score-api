@@ -20,6 +20,7 @@ class ProductControllerTest extends TestCase
         \App\Models\Product::factory()->count(5)->create();
 
         $response = $this->getJson('/api/products');
+        // dd($response->content());
 
         $response->assertSuccessful();
         $response->assertHeader('content-type','application/json');
