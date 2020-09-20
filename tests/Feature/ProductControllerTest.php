@@ -16,7 +16,8 @@ class ProductControllerTest extends TestCase
 
     public function test_index() {
 
-        factory(Product::class, 5)->create();
+        // factory(Product::class, 5)->create();
+        \App\Models\Product::factory()->count(5)->create();
 
         $response = $this->getJson('/api/products');
 
@@ -40,7 +41,8 @@ class ProductControllerTest extends TestCase
 
     public function test_update_product() {
         /** @var Product $product */
-        $product = factory(Product::class)->create();
+        // $product = factory(Product::class)->create();
+        $product = \App\Models\Product::factory()->create();
 
         $data = [
             'name' => 'Update Product',
@@ -54,7 +56,8 @@ class ProductControllerTest extends TestCase
 
     public function test_show_product() {
         /** @var Product $product */
-        $product = factory(Product::class)->create();
+        // $product = factory(Product::class)->create();
+        $product = \App\Models\Product::factory()->create();
 
         $response = $this->getJson("/api/products/{$product->getKey}");
 
@@ -65,7 +68,8 @@ class ProductControllerTest extends TestCase
 
     public function test_delete_product() {
         /** @var Product $product */
-        $product = factory(Product::class)->create();
+        // $product = factory(Product::class)->create();
+        $product = \App\Models\Product::factory()->create();
 
         $response = $this->deleteJson("/api/products/{$product->getKey()}");
 
