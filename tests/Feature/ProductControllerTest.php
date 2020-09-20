@@ -50,7 +50,7 @@ class ProductControllerTest extends TestCase
             'price' => 20000,
         ];
 
-        $response = $this->patchJson("/api/products/{$product->getKey}",$data);
+        $response = $this->patchJson("/api/products/{$product->getKey()}",$data);
         $response->assertSuccessful();
         $response->assertHeader('content-type','application/json');
     }
