@@ -20,7 +20,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'products'   => 'ProductController',
-    'categories' => 'CategoryController'
-]);
+Route::group(["middleware" => "auth:sanctum"],function() {
+    Route::apiResources([
+        'products'   => 'ProductController',
+        'categories' => 'CategoryController'
+    ]);
+});
+
+Route::post('sanctum/token','UserTokenController');
