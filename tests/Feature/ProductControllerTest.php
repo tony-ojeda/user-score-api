@@ -42,6 +42,17 @@ class ProductControllerTest extends TestCase
         $this->assertDatabaseHas('products',$data);
     }
 
+    public function test_validation_new_product() {
+        $data = [
+            'price' => 1000,
+        ];
+
+        $response = $this->postJson('/api/products',$data);
+        $response->assertJsonValidationErrors([
+            'name',
+        ]);
+    }
+
     public function test_update_product() {
         /** @var Product $product */
         // $product = factory(Product::class)->create();

@@ -3,8 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Product;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Category;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
 {
@@ -26,7 +27,10 @@ class ProductFactory extends Factory
             // 'name' => $faker->name,
             // 'price'=> $faker->numberBetween(1000,6000)
             'name' => $this->faker->name,
-            'price'=> $this->faker->numberBetween(1000,6000)
+            'price'=> $this->faker->numberBetween(1000,6000),
+            'category_id' => function() {
+                return Category::query()->inRandomOrder()->first()->id;
+            }
         ];
     }
 }

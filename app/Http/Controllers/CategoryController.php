@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Resources\CategoryResource;
+use App\Http\Requests\StoreCategoryRequest;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except(['index', 'show']);
+    }
+    
     public function index()
     {
-        return Category::all();
+        return CategoryResource::collection(Category::paginate(5));
     }
 
     /**
@@ -23,10 +25,10 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
         $category = Category::create($request->all());
-        return $category;
+        return new CategoryResource($category);
     }
 
     /**
@@ -37,7 +39,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return $category;
+        return new CategoryResource($category);
     }
 
     /**
@@ -50,7 +52,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $category->update($request->all());
-        return $category;
+        return new CategoryResource($category);
     }
 
     /**

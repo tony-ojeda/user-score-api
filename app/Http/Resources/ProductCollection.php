@@ -20,7 +20,9 @@ class ProductCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection,
-            'links'=> 'metadata'
+            'categories'=> [
+                'list' => route('categories.index')
+            ]
         ];
     }
 }
