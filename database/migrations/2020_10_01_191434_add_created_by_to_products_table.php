@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\User;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class AddCreatedByToProductsTable extends Migration
 {
@@ -13,8 +14,8 @@ class AddCreatedByToProductsTable extends Migration
      */
     public function up()
     {
-        $user = factory(\App\User::class)->create([
-            'name' => 'Administrador',
+        $user = User::factory()->create([
+            'name' => 'Administrador'
         ]);
 
         Schema::table('products', function (Blueprint $table) use ($user) {
