@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -30,6 +31,9 @@ class ProductFactory extends Factory
             'price'=> $this->faker->numberBetween(1000,6000),
             'category_id' => function() {
                 return Category::query()->inRandomOrder()->first()->id;
+            },
+            'created_by' => function() {
+                return User::query()->inRandomOrder()->first()->id;
             }
         ];
     }
