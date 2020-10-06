@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Utils;
+use Illuminate\Database\Eloquent\Model;
 
 trait CanRate {
     public function ratings($model = null) {
-        $modelClass = $model? $model : $this->getMorphClass();
+        $modelClass = $model ? (new $model)->getMorphClass() : $this->getMorphClass();
 
         $morphToMany = $this->morphToMany(
             $modelClass,
@@ -15,7 +16,7 @@ trait CanRate {
         );
 
         $morphToMany
-            ->as('ratings')
+            ->as('rating')
             ->withTimestamps()
             ->withPivot('score','rateable_type')
             ->wherePivot('rateable_type',$modelClass)
@@ -25,7 +26,7 @@ trait CanRate {
         return $morphToMany;
     }
 
-    public function rate(Model $model, float $score) {
+    public function rate(Model $model, float $score): bool {
         
         if($this->hasRated($model)) return false;
         
