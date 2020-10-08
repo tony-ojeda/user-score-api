@@ -27,5 +27,10 @@ Route::group(["middleware" => "auth:sanctum"],function() {
     ]);
 });
 
+Route::middleware(['auth:sactum'])->group(function() {
+    Route::post('newsletter','NewsletterController@send');
+    Route::post('products/{product}/rate','ProductRatingController@rate');
+    Route::post('products/{product}/unrate','ProductRatingController@unrate');
+});
+
 Route::post('sanctum/token','UserTokenController');
-Route::post('newsletter','NewsletterController@send');
