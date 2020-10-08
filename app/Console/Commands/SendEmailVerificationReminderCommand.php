@@ -41,7 +41,7 @@ class SendEmailVerificationReminderCommand extends Command
     {
         User::query()
             ->whereDate('created_at','=',Carbon::now()->subDays(7)->format('Y-m-d'))
-            ->whereNull('email_verfied_at')
+            ->whereNull('email_verified_at')
             ->each(function(User $user) {
               // Equivalente a $this->notify(new VerifyEmail);
               $user->sendEmailVerificationNotification();  

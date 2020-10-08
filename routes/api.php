@@ -28,3 +28,4 @@ Route::group(["middleware" => "auth:sanctum"],function() {
 });
 
 Route::post('sanctum/token','UserTokenController');
+Route::post('newsletter','NewsletterController@send');
