@@ -38,6 +38,17 @@ trait CanRate {
         return true;
     }
 
+    public function unrate(Model $model): bool 
+    {
+        if(!$this->hasRated($model)) {
+            return false;
+        }
+
+        $this->ratings($model->getMorphClass())->detach($model->getKey());
+
+        return true;
+    }
+
     public function hasRated(Model $model) {
         return !is_null($this->ratings($model->getMorphClass())->find($model->getKey()));
     }
