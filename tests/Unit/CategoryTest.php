@@ -12,7 +12,7 @@ class CategoryTest extends TestCase
     use RefreshDatabase;
 
     public function test_a_category_has_many_products() {
-        $category = \App\Models\Category::factory()->create();
+        // $category = \App\Models\Category::factory()->create();
         // $product1 = Product::factory()->create(['category_id' => $category->id]);
         // $product2 = Product::factory()->create(['category_id' => $category->id]);
         // $product3 = Product::factory()->create(['category_id' => $category->id]);

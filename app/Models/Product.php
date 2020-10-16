@@ -4,13 +4,13 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Category;
-use App\Utils\CanBeRated;
+use App\Utils\CanBeRate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory, CanBeRated;
+    use HasFactory, CanBeRate;
 
     protected $guarded = [];
 
@@ -19,7 +19,7 @@ class Product extends Model
     }
 
     public function createdBy() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'created_by');
     }
 
 }

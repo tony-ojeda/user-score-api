@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
+use App\Models\Product;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use App\Notifications\NewsletterNotification;
 
 class SendNewsletterCommand extends Command
@@ -39,9 +41,15 @@ class SendNewsletterCommand extends Command
             $this->info("Se enviaran {$count} correos");
 
             if ($this->confirm('¿Estas de acuerdo?') || $schedule) {
+                $productQuery = Product::query();
+                $productQuery->withCount(['qualifications as average_rating'=>function ($query){
+                    $query->select(DB::raw('coalesce(avg(score),0)'));
+                }])->orderByDesc('average_rating');
+                $products = $productQuery->take(6)->get();
+
                 $this->output->progressStart($count);
-                $builder->each(function(User $user) {
-                    $user->notify(new NewsletterNotification());
+                $builder->each(function(User $user) use ($products) {
+                    $user->notify(new NewsletterNotification($products->toArray()));
                     $this->output->progressAdvance();
                 });
                 $this->output->progressFinish();
