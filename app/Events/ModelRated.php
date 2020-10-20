@@ -14,23 +14,33 @@ class ModelRated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    private Model $qualifier;
+    private Model $ratable;
+    private float $score;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Model $qualifier, Model $ratable, float $score)
     {
-        //
+        $this->qualifier = $qualifier;
+        $this->ratable = $ratable;
+        $this->score = $score;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
+    public function getQualifier(): Model 
     {
-        return new PrivateChannel('channel-name');
+        return $this->qualifier;
+    }
+
+    public function getRatable(): Model 
+    {
+        return $this->ratable;
+    }
+
+    public function getScore(): float 
+    {
+        return $this->score;
     }
 }
