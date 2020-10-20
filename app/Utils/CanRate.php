@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Utils;
+use App\Events\ModelRated;
 use Illuminate\Database\Eloquent\Model;
 
 trait CanRate {

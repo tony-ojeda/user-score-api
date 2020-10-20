@@ -2,29 +2,26 @@
 
 namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Events\ModelRated;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendEmailModelRatedNotification
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
     public function __construct()
     {
         //
     }
 
-    /**
-     * Handle the event.
-     *
-     * @param  object  $event
-     * @return void
-     */
-    public function handle($event)
+    public function handle(ModelRated $event)
     {
-        //
+        /** @var Product $rateable */
+        $rateable = $event->getRateable();
+
+        if($rateable instanceof Product) {
+            $notification = new ModelRatedNotification();
+
+            $rateable->createdBy->notify($notification);
+        }
     }
 }

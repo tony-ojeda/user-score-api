@@ -15,17 +15,17 @@ class ModelRated
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     private Model $qualifier;
-    private Model $ratable;
+    private Model $rateable;
     private float $score;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Model $qualifier, Model $ratable, float $score)
+    public function __construct(Model $qualifier, Model $rateable, float $score)
     {
         $this->qualifier = $qualifier;
-        $this->ratable = $ratable;
+        $this->rateable = $rateable;
         $this->score = $score;
     }
 
@@ -34,9 +34,9 @@ class ModelRated
         return $this->qualifier;
     }
 
-    public function getRatable(): Model 
+    public function getRateable(): Model 
     {
-        return $this->ratable;
+        return $this->rateable;
     }
 
     public function getScore(): float 
